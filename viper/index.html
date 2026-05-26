@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Open in Viper</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; padding: 0; background: #070B14; color: #E8F4FF;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100dvh; display: flex; align-items: center; justify-content: center; }
+  main { max-width: 28rem; padding: 2rem 1.5rem; text-align: center; }
+  h1 { margin: 0 0 0.5rem; font-size: 1.5rem; letter-spacing: 0.1em; color: #00FF88; }
+  p  { margin: 0.5rem 0; color: #8AAABB; line-height: 1.45; }
+  a.btn { display: inline-block; margin-top: 1.5rem; padding: 0.85rem 1.5rem;
+    border: 1.5px solid #00FF88; border-radius: 6px; color: #00FF88;
+    text-decoration: none; font-weight: 700; letter-spacing: 0.2em;
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.35); }
+  a.stores { display: inline-block; margin-top: 0.5rem; color: #3399FF; text-decoration: none; }
+  .err { color: #FF8888; }
+</style>
+</head>
+<body>
+<main>
+  <h1>VIPER</h1>
+  <p id="msg">Opening shared level…</p>
+  <a id="cta" class="btn" href="#" style="display:none">OPEN IN APP</a>
+  <p><a class="stores" href="https://play.google.com/store/apps/details?id=com.cesys.viper" target="_blank" rel="noopener">Get Viper on Google Play</a></p>
+</main>
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var d = params.get('d');
+  var msg = document.getElementById('msg');
+  var cta = document.getElementById('cta');
+  if (!d) {
+    msg.className = 'err';
+    msg.textContent = 'This link is missing the level data.';
+    return;
+  }
+  var target = 'viper://import?d=' + encodeURIComponent(d);
+  cta.href = target;
+  cta.style.display = 'inline-block';
+  // Auto-redirect; if the app isn't installed the user lands back here and can
+  // tap the manual button or the store link.
+  setTimeout(function () { location.replace(target); }, 50);
+})();
+</script>
+</body>
+</html>
